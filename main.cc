@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 	arr.addEntry("Crackle");
 	arr.addEntry("Pop");
 	arr.addEntry("I'm out of Rice Krispies :'(");
-	cout << "Size should be 4: " << ((arr.getSize() == 4) ? "success" : "failure") << endl << endl;
+	cout << "Size should be 4: " << ((arr.getSize() == 4) ? "Success" : "Failure") << endl << endl;
 	cout << "Done adding stuff! Size is now: " << arr.getSize() << endl << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
 	cout << "Items in the array are: ";
@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
 	cout << endl;
 	cout << "--------------------------------------------------------------------------------------------------- " << endl;
 	cout << "Okay, now that we know that adding works...time to see if deleting works...hold onto your hat(s)..." << endl;
-	cout << "Deleting Snap: " << ((arr.deleteEntry("Snap")) ? "success" : "failure") << endl;
-	cout << "Size should be 3: " << ((arr.getSize() == 3) ? "success" : "failure") << endl << endl;
+	cout << "Deleting Snap: " << ((arr.deleteEntry("Snap")) ? "Success" : "Failure") << endl;
+	cout << "Size should be 3: " << ((arr.getSize() == 3) ? "Success" : "Failure") << endl << endl;
 	cout << "After deleting Snap, size is now: " << arr.getSize() << endl << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
 	cout << endl << "The array now contains: ";
@@ -42,10 +42,10 @@ int main(int argc, char* argv[]) {
 	}
 	cout << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
-	cout << "\n\nDoes deleting an item that does not exist fail (success means it failed correctly): " << (
-			!arr.deleteEntry("Captain Crunch") ? "success" : "failure") << endl;
+	cout << "\n\nDoes deleting an item that does not exist fail (Success means it failed correctly): " << (
+			!arr.deleteEntry("Captain Crunch") ? "Success" : "Failure") << endl;
 	cout << "\n\nNow ensure nothing wonky happened as a result, nothing should have changed...size should still be 3." << endl;
-	cout << "Size should be 3: " << ((arr.getSize() == 3) ? "success" : "failure") << endl << endl;
+	cout << "Size should be 3: " << ((arr.getSize() == 3) ? "Success" : "Failure") << endl << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
 	cout << endl << "Contents are: ";
 	for(int i = 0;i < arr.getSize();i++) {
@@ -80,15 +80,15 @@ int main(int argc, char* argv[]) {
 	}
 	cout << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
-	cout << "\n\nShould be empty: " << ((arr.getSize() == 0) ? "success" : "failure") << endl;
+	cout << "\n\nShould be empty: " << ((arr.getSize() == 0) ? "Success" : "Failure") << endl;
 	cout << "\n\nNow let's test what happens when the list is not defined and the size is equal to zero" << endl;
-	cout << "\n\nGet operation should return NULL: " << ((!arr.getEntry(0)) ? "success" : "failure") << endl;
+	cout << "\n\nGet operation should return NULL: " << ((!arr.getEntry(0)) ? "Success" : "Failure") << endl;
 	cout << "\n*****************************************************************************************************" << endl;
 	cout << "Create a new DynamicStringArray, but add nothing to it and test that things behave according to spec." << endl;
 	DynamicStringArray arr2; // size==0, array = NULL
-	cout << "\nTry to delete an item on an empty array (success means it failed as expected): " << (
-			(!arr2.deleteEntry("Toucan Sam")) ? "success" : "failure") << endl;
-	cout << "\n\nGet operation should return NULL: " << ((!arr.getEntry(0)) ? "success" : "failure") << endl;
+	cout << "\nTry to delete an item on an empty array (Success means it failed as expected): " << (
+			(!arr2.deleteEntry("Toucan Sam")) ? "Success" : "Failure") << endl;
+	cout << "\n\nGet operation should return NULL: " << ((!arr.getEntry(0)) ? "Success" : "Failure") << endl;
 	cout << "Now test whether order is maintained." << endl;
 	cout << "\n*****************************************************************************************************" << endl;
 	testMaintainsOrder();
@@ -101,19 +101,20 @@ void testMaintainsOrder() {
 	arr2.addEntry("Crackle");
 	arr2.addEntry("Pop");
 	arr2.addEntry("I'm out of Rice Krispies :'(");
-	cout << "Size should be 4: " << ((arr2.getSize() == 4) ? "success" : "failure") << endl << endl;
+	cout << "Size should be 4: " << ((arr2.getSize() == 4) ? "Success" : "Failure") << endl << endl;
 	cout << "Done adding stuff! Size is now: " << arr2.getSize() << endl << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
 	cout << "Items in the array are: ";
 	for(int i = 0;i < arr2.getSize();i++) {
 		cout << *arr2.getEntry(i) << ((!(i != arr2.getSize() - 1)) ? "" : ", ");
 	}
-
+	cout<<endl;
 	arr2.deleteEntry("Pop");
 	arr2.deleteEntry("Snap");
-	cout<<endl<<arr2.getSize()<<endl;
+	cout<<"\nSize should be 2: "<<((arr2.getSize()==2) ? "Success" : "Failure")<<endl;
 	cout << "Items in the array are (sans Pop and Snap): ";
 	for(int i = 0;i < arr2.getSize();i++) {
 		cout << *arr2.getEntry(i) << ((!(i != arr2.getSize() - 1)) ? "" : ", ");
 	}
+	cout<<endl;
 }
