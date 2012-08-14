@@ -18,7 +18,9 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	DynamicStringArray arr;
 	arr.addEntry("hai");
-	arr.deleteEntry("hai");
+	arr.addEntry("hai");
+	arr.addEntry("hi");
+	arr.addEntry("test...");
 	cout<<arr.getSize();
 	return 0;
 
