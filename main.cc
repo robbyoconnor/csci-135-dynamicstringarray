@@ -32,9 +32,9 @@ int main(int argc, char* argv[]) {
 	cout << endl;
 	cout << "--------------------------------------------------------------------------------------------------- " << endl;
 	cout << "Okay, now that we know that adding works...time to see if deleting works...hold onto your hat(s)..." << endl;
-	cout << "Deleting Snap: " << ((arr.deleteEntry("Snap")) ? "Success" : "Failure") << endl;
+	cout << "Deleting \"Snap\": " << ((arr.deleteEntry("Snap")) ? "Success" : "Failure") << endl;
 	cout << "Size should be 3: " << ((arr.getSize() == 3) ? "Success" : "Failure") << endl << endl;
-	cout << "After deleting Snap, size is now: " << arr.getSize() << endl << endl;
+	cout << "After deleting \"Snap\", size is now: " << arr.getSize() << endl << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
 	cout << endl << "The array now contains: ";
 	for(int i = 0;i < arr.getSize();i++) {
@@ -56,25 +56,24 @@ int main(int argc, char* argv[]) {
 	cout << "\nDelete everything and test that the size decrements correctly..." << endl;
 	arr.deleteEntry("Crackle");
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
-	cout << endl << "After deleting Crackle, Contents are: ";
+	cout << endl << "After deleting \"Crackle\", Contents are: ";
 	for(int i = 0;i < arr.getSize();i++) {
 		cout << *arr.getEntry(i) << ((!(i != arr.getSize() - 1)) ? "" : ", ");
 	}
 	cout << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
-
-	cout << "---------------------------------------------------------------------------------------------------" << endl;
-	cout << endl << "After deleting Pop, Contents are: ";
+	arr.deleteEntry("Pop");
+;	cout << "---------------------------------------------------------------------------------------------------" << endl;
+	cout << endl << "After deleting \"Pop\", Contents are: ";
 	for(int i = 0;i < arr.getSize();i++) {
 		cout << *arr.getEntry(i) << ((!(i != arr.getSize() - 1)) ? "" : ", ");
 	}
 	cout << endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
 	arr.deleteEntry("I'm out of Rice Krispies :'(");
-	arr.deleteEntry("Pop");
-	cout << "After deleting I'm out of Rice Krispies :'(" << endl;
+
+	cout << "After deleting \"I'm out of Rice Krispies :'(\" Contents are: "<<endl;
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
-	cout << endl << "Contents are: ";
 	for(int i = 0;i < arr.getSize();i++) {
 		cout << *arr.getEntry(i) << ((!(i != arr.getSize() - 1)) ? "" : ", ");
 	}
@@ -112,7 +111,7 @@ void testMaintainsOrder() {
 	arr2.deleteEntry("Pop");
 	arr2.deleteEntry("Snap");
 	cout<<"\nSize should be 2: "<<((arr2.getSize()==2) ? "Success" : "Failure")<<endl;
-	cout << "Items in the array are (sans Pop and Snap): ";
+	cout << "Items in the array are (sans \"Pop\" and \"Snap\"): ";
 	for(int i = 0;i < arr2.getSize();i++) {
 		cout << *arr2.getEntry(i) << ((!(i != arr2.getSize() - 1)) ? "" : ", ");
 	}

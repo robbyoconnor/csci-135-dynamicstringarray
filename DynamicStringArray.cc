@@ -51,7 +51,7 @@ bool DynamicStringArray::deleteEntry(string str) {
 	if (!this->dynamicArray || !size) {
 		return false;
 	} else if(!this->containsValue(str)) {
-		cout<<str<<" is not present in this array."<<endl;
+		cout<<"\""<<str<<"\" is not present in this array."<<endl;
 		return false;
 	}else {
 		size_t oldSize = size;
