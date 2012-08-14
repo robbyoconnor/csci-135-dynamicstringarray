@@ -1,2 +1,1 @@
-dynamicstringarray
-==================
+Sucky class project... it's sucky code...
