@@ -1,88 +1,96 @@
 /******************************************************************************
-Title: DynamicStringArray.cc
-Author: Robert O'Connor
-Created on: July 21, 2012
-Description: an array capable of expanding.
-Modifications:
-*******************************************************************************/
+ Title: DynamicStringArray.cc
+ Author: Robert O'Connor
+ Created on: July 21, 2012
+ Description: an array capable of expanding.
+ Modifications:
+ *******************************************************************************/
 
 #include "DynamicStringArray.h"
+#include <iostream>
 #include <string>
+#include <cstddef>
 
 using namespace std;
-
-DynamicStringArray::DynamicStringArray(): size(0), dynamicArray(NULL){
+// predicate function used by remove_copy_if
+bool predicate(string str, string str2) {
+	return str == str2;
 }
 
+DynamicStringArray::DynamicStringArray() :
+		size(0), dynamicArray(NULL) {
+}
 
 DynamicStringArray::~DynamicStringArray() {
-	if(this->size && this->dynamicArray) {
+	if (this->size && this->dynamicArray) {
 		delete[] this->dynamicArray;
-			this->dynamicArray = NULL;
+		this->dynamicArray = NULL;
 	}
 }
-
 
 int DynamicStringArray::getSize() {
 	return this->size;
 }
 
 void DynamicStringArray::addEntry(string str) {
-	if(!size && !this->dynamicArray) { // e.g., it's NULL or size=0
+	if (!this->size && !this->dynamicArray) { // e.g., it's NULL or this->size=0
 		this->dynamicArray = new string[++this->size];
-		this->dynamicArray[0] = str; // size = 1
+		this->dynamicArray[0] = str; // this->size = 1
 	} else { // not NULL
+		size_t oldSize = size; // store so that I can access the old size.
 		string *tmp = new string[++this->size];
-		for(int i=0;i<size-1;i++) {
-			tmp[i] = this->dynamicArray[i];
-		}
+		copy(this->dynamicArray, this->dynamicArray + oldSize, tmp);
+		tmp[size - 1] = str;
 		delete[] this->dynamicArray;
 		this->dynamicArray = NULL;
-		tmp[this->size-1] = str;
 		this->dynamicArray = tmp;
-		delete[] tmp;
-		tmp = NULL;
 	}
 }
 
-bool  DynamicStringArray::deleteEntry(string s) {
-	if(!this->dynamicArray) {
-		return false; // NEIGHHHH -- uh-oh.
-	} else {
-
+bool DynamicStringArray::deleteEntry(string str) {
+	if (!this->dynamicArray || !size) {
+		return false;
+	} else if(!this->containsValue(str)) {
+		cout<<str<<" is not in the list."<<endl;
+		return false;
+	}else {
+		size_t oldSize = size;
+		size_t newSize = --size;
 		bool found = false;
-		for( int i=0;i<this->size && found; i++) {
-			/*
-			 * find the string and set it to an empty string; this only does it for the first
-			 * occurance.
-			 */
-			if(this->dynamicArray[i]==s) {
-				this->dynamicArray[i] = "";
+		string *tmp = new string[newSize];
+		size_t index;
+		for(int i = 0;i < oldSize && !found;i++) {
+			if(str == this->dynamicArray[i]) {
+				index = i;
 				found = true;
 			}
 		}
-		//copy things over except the empty string from the above loop... this is the conditional.
-		string *tmp = new string[this->size--];
-		for(int i=0;i<this->size;i++) {
-			if(this->dynamicArray[i]!="") {
-				tmp[i] = this->dynamicArray[i];
+		for(int i=0,j=0;i<oldSize,j<newSize;i++) {
+			if(i!=index) {
+				tmp[j++] = this->dynamicArray[i];
 			}
 		}
-		--size;
-		// switch shit and pray it doesn't leak.
 		delete[] this->dynamicArray;
 		this->dynamicArray = NULL;
 		this->dynamicArray = tmp;
-		delete[] tmp;
-		tmp = NULL;
-		return true; // SUCCESSSSSSSSSSSSSSSSSSSSSSSSSSS IS MINEEEEEEEEEEEEEEEEEEEEEEE..
+		return true;
 	}
 }
 
-string DynamicStringArray::getEntry(int index) {
-	if(!this->dynamicArray || !size || size<0 || index > size-1) {
+
+string* DynamicStringArray::getEntry(int index) const {
+	if (!this->dynamicArray || !this->size || this->size < 0 || index > this->size - 1) {
 		return NULL;
 	} else {
-		return this->dynamicArray[index];
+		return &this->dynamicArray[index];
 	}
+}
+
+bool DynamicStringArray::containsValue(string s) {
+	for(int i=0;i<size;i++) {
+		if(s==this->dynamicArray[i]) {
+			return true;
+		}
+	}
+	return false;
 }

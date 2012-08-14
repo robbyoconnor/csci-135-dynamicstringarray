@@ -15,10 +15,13 @@ class DynamicStringArray {
      */
     DynamicStringArray();
 
+
     /**
      * Destructor
      */
     ~DynamicStringArray();
+
+
 
     /**
      * Returns the current size.
@@ -51,13 +54,23 @@ class DynamicStringArray {
      *
      * @param index the index
      */
-    std::string  getEntry(int index);
+    std::string*  getEntry(int index) const;
 
 
 
   private:
     std::string *dynamicArray;
     int size;
+
+    /**
+     * Pre-condition: s is defined.
+     *
+     * Simply determine if a given value.
+     *
+     * @param s the string to searcb for
+     * @return true or false depending on if it exists.
+     */
+    bool containsValue(std::string s);
 
 };
 #endif
