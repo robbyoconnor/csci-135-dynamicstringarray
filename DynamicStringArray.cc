@@ -2,24 +2,24 @@
 Title: DynamicStringArray.cc
 Author: Robert O'Connor
 Created on: July 21, 2012
-Description: an array capable of expanding (and shrinking) its size.
+Description: an array capable of expanding.
 Modifications:
 *******************************************************************************/
 
 #include "DynamicStringArray.h"
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
-DynamicStringArray::DynamicStringArray(){
-    this->dynamicArray = NULL;
-    this->size = 0;
+DynamicStringArray::DynamicStringArray(): size(0), dynamicArray(NULL){
 }
 
+
 DynamicStringArray::~DynamicStringArray() {
-	delete[] this->dynamicArray;
-	this->dynamicArray = NULL;
+	if(this->size && this->dynamicArray) {
+		delete[] this->dynamicArray;
+			this->dynamicArray = NULL;
+	}
 }
 
 
@@ -28,13 +28,14 @@ int DynamicStringArray::getSize() {
 }
 
 void DynamicStringArray::addEntry(string str) {
-	if(!size && !this->dynamicArray) { // e.g., it's NULL
+	if(!size && !this->dynamicArray) { // e.g., it's NULL or size=0
 		this->dynamicArray = new string[++this->size];
 		this->dynamicArray[0] = str; // size = 1
 	} else { // not NULL
 		string *tmp = new string[++this->size];
-		// copy data (note that tmp is ome bigger than our original array, and we only copy over all but the one we need.)
-		copy(this->dynamicArray,this->dynamicArray+(size-1),tmp);
+		for(int i=0;i<size-1;i++) {
+			tmp[i] = this->dynamicArray[i];
+		}
 		delete[] this->dynamicArray;
 		this->dynamicArray = NULL;
 		tmp[this->size-1] = str;
