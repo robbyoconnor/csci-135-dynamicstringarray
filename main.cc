@@ -12,17 +12,14 @@
 #include <iostream>
 #include <iomanip>
 
-#include "main.h"
 #include "DynamicStringArray.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {
 	DynamicStringArray arr;
 	arr.addEntry("hai");
-	arr.addEntry("hi");
-	arr.addEntry("hi");
+	arr.deleteEntry("hai");
 	cout<<arr.getSize();
 	return 0;
 
 }
-

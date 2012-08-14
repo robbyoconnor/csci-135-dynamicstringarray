@@ -2,7 +2,7 @@
 Title: DynamicStringArray.h
 Author: Robert O'Connor
 Created on: July 21, 2012
-Description: A resizable array
+Description: an array capable of expanding (and shrinking) its size.
 *******************************************************************************/
 #ifndef DYNAMICSTRINGARRAY_H
 #define	DYNAMICSTRINGARRAY_H
@@ -27,6 +27,8 @@ class DynamicStringArray {
 
     /**
      * Add an entry.
+     * Pre-condition: str is defined.
+     * Post-condition: str is added to the array.
      *
      * @param str the string to add
      */
@@ -35,13 +37,17 @@ class DynamicStringArray {
 
     /**
      * Delete the entry s.
+     * Pre-condition: s is defined
+     * Post-condition: if s is in the array, then it is removed.
      * Note: if more than one occurance of s exists, then only the first will be removed.
+     * @param str the string to remove.
      */
-    bool deleteEntry(std::string s);
+    bool deleteEntry(std::string str);
 
     /**
      * Retrieve the entry at the given index
      * Pre-condition: index>0
+     * Post-condition: the element at the given index is returned.
      *
      * @param index the index
      */

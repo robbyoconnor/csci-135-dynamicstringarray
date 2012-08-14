@@ -2,11 +2,13 @@
 Title: DynamicStringArray.cc
 Author: Robert O'Connor
 Created on: July 21, 2012
-Description: Represents an Amino Acid
+Description: an array capable of expanding (and shrinking) its size.
 Modifications:
 *******************************************************************************/
+
 #include "DynamicStringArray.h"
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -26,17 +28,16 @@ int DynamicStringArray::getSize() {
 }
 
 void DynamicStringArray::addEntry(string str) {
-	if(!this->dynamicArray) { // e.g., it's NULL
+	if(!size && !this->dynamicArray) { // e.g., it's NULL
 		this->dynamicArray = new string[++this->size];
 		this->dynamicArray[0] = str; // size = 1
 	} else { // not NULL
 		string *tmp = new string[++this->size];
-		for(int i=0;i<size-1;i++) {
-			tmp[i] = this->dynamicArray[i];
-		}
-		tmp[this->size-1] = str;
+		// copy data (note that tmp is ome bigger than our original array, and we only copy over all but the one we need.)
+		copy(this->dynamicArray,this->dynamicArray+(size-1),tmp);
 		delete[] this->dynamicArray;
 		this->dynamicArray = NULL;
+		tmp[this->size-1] = str;
 		this->dynamicArray = tmp;
 		delete[] tmp;
 		tmp = NULL;
@@ -74,5 +75,13 @@ bool  DynamicStringArray::deleteEntry(string s) {
 		delete[] tmp;
 		tmp = NULL;
 		return true; // SUCCESSSSSSSSSSSSSSSSSSSSSSSSSSS IS MINEEEEEEEEEEEEEEEEEEEEEEE..
+	}
+}
+
+string DynamicStringArray::getEntry(int index) {
+	if(!this->dynamicArray || !size || size<0 || index > size-1) {
+		return NULL;
+	} else {
+		return this->dynamicArray[index];
 	}
 }
